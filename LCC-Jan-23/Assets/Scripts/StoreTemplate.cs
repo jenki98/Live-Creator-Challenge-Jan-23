@@ -9,5 +9,5 @@ public class StoreTemplate : MonoBehaviour
     [SerializeField] public TMP_Text itemTxt;
     [SerializeField] public TMP_Text descriptionTxt;
     [SerializeField] public TMP_Text priceText;
-    [SerializeField] public Sprite icon;
+    [SerializeField] public Image icon;
 }

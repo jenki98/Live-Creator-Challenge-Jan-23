@@ -8,6 +8,7 @@ public class StoreManager : MonoBehaviour
 {
     [SerializeField] private int gems;
     [SerializeField] private TMP_Text gemsUI;
+    [SerializeField] private TMP_Text messageUI;
     [SerializeField] private ItemSO[] itemSO;
     [SerializeField] private Transform templateParent;
     [SerializeField] private GameObject templatePrefab;
@@ -18,40 +19,28 @@ public class StoreManager : MonoBehaviour
 
     void Start()
     {
-        UpdateGemsUI();
-        CheckPurchasable();
+       // UpdateGemsUI();
         LoadItems();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateGemsUI();
     }
 
 
-    public void CheckPurchasable()
-    {
-        for (int i = 0; i < itemSO.Length; i++)
-        {
-            if (gems >= itemSO[i].Price)
-            {
-                //purchaseBtns[i].interactable = true;
-            }
-            else
-            {
-               // purchaseBtns[i].interactable = false;
-
-            }
-        }
-    }
+ 
 
     void UpdateGemsUI()
     {
-        gemsUI.text = "Gems: " + gems.ToString();
+        gemsUI.text = " " + gems.ToString();
     }
 
-
+    public void PurchaseMoreGems(int amount)
+    {
+        gems = gems + amount;
+    }
     public void PurchaseItems(ItemSO item)
     {
         if (gems >= item.Price)
@@ -59,6 +48,7 @@ public class StoreManager : MonoBehaviour
             //add listener to add to inventory
             gems = gems - item.Price;
             InventoryManager.Instance.AddInventoryItem(item);
+            messageUI.text = item.ItemName + " Purchased";
             
         }else if(gems < item.Price)
         {
@@ -78,8 +68,9 @@ public class StoreManager : MonoBehaviour
             btn.onClick.AddListener(() => { PurchaseItems(item); });
             storeTemplate.itemTxt.text = item.ItemName;
             storeTemplate.descriptionTxt.text = item.Description;
-            storeTemplate.priceText.text = "Gems: " + item.Price.ToString();
-            storeTemplate.icon. = Resources.Load(item.ItemIcon) as Sprite;
+            storeTemplate.priceText.text = "" + item.Price.ToString();
+            storeTemplate.icon.sprite = Resources.Load(item.ItemIcon, typeof(Sprite)) as Sprite;
+           
             purchaseBtns.Add(btn);
         }
 

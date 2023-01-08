@@ -15,4 +15,4 @@ MonoBehaviour:
   ItemName: Resurection Potion
   Description: Resurect after dying without losing progress
   Price: 500
-  ItemIcon: {fileID: 0}
+  ItemIcon: potion39
